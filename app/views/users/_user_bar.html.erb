@@ -1,0 +1,16 @@
+<ul id="submenu">
+  <% if logged_in? %>
+    <li><%= link_to "#{icon 'page_add'} Escribe un artículo", new_article_path %></li>
+    <li><%= link_to "#{icon 'layout_add'} Añade una aplicación", new_app_path %></li>
+    <li class="spacer"> &bull; </li>
+    <li><%= link_to "#{icon 'page_red'} Tus Artículos", user_articles_path(current_user.login) %></li>
+    <li><%= link_to "#{icon 'layout'} Tus Aplicaciones", user_apps_path(current_user.login) %></li>
+    <li class="spacer"> &bull; </li>
+    <li><%= link_to "#{icon 'message'} Mensajes", inbox_path %></li>
+  <% else %>
+    <li class="spacer">¿No tienes una cuenta aún?</li>
+    <li><%= link_to "#{icon 'user_add'} Crea una cuenta gratis!", signup_path %></li>
+    <li class="spacer"> o </li>
+    <li><%= link_to "#{icon 'door_in'} Entra con tu usuario", login_path %></li>
+  <% end %>
+</ul>

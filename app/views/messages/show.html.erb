@@ -1,0 +1,39 @@
+<h2><%= title h(@message.subject) %></h2>
+
+<% sidebar do %>
+  <h3 class="alt">Info</h3>
+
+  <p>
+    <span class="bold">Remitente:</span><br />
+    <%= link_to gravatar(@message.author.email, :s => 40), profile_path(@message.author.login), :title => @message.author.login %>
+  </p>
+
+  <p>
+    <span class="bold">Destinatarios:</span><br />
+    <%= @message.recipients.map{|recipient|
+        link_to gravatar(recipient.email, {:s => 30}, :class => 'bordered'), profile_path(recipient.login), :title => recipient.login
+    } %>
+  </p>
+
+  <p>
+    <span class="bold">Recibido el:</span><br />
+    <%= l @message.created_at, :format => :long %>
+  </p>
+  <hr />
+
+  <p><%= link_to '&laquo; Regresar', inbox_path %></p>
+<% end %>
+
+<pre><%=h @message.body %></pre>
+
+<p class="clearfix">
+  <%= link_button_to "#{icon 'message_go'} Responder", reply_message_path(@message) %>
+
+  <%= link_button_to "#{icon 'message_go'} Reenviar", forward_message_path(@message) %>
+
+  <% unless @message.deleted %>
+    <%= link_button_to "#{icon 'bin'} Borrar", message_path(@message), :class => 'negative', :method => :delete, :confirm => '¿Eliminar mensaje?' %>
+  <% else %>
+    <%= link_button_to "#{icon 'arrow_refresh'} Restaurar", restore_message_path(@message), :method => :put %>
+  <% end %>
+</p>

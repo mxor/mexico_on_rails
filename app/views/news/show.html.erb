@@ -1,0 +1,19 @@
+<h2><%= title h(@new.title) %></h2>
+<% sidebar do %>
+  <h3 class="alt">Info</h3>
+  <p>
+    <span class="bold">Escrita hace</span><br />
+    <%= abbr_time_ago @new.created_at, :long %>
+  </p>
+  <% admin do %>
+    <p class="clearfix"><span class="bold">Administración</span><br />
+      <%= link_button_to "#{icon 'page_edit'} Editar", edit_news_path(@new) %>
+      <%= link_button_to "#{icon 'delete'} Eliminar", news_path(@new), :method => :delete,
+        :confirm => '¿Estás seguro que quieres eliminar esta noticia?', :class => 'negative' %>
+    </p>
+  <% end %>
+<% end %>
+
+<%= @new.content %>
+
+<%= render :partial => 'comments/comments', :object => @new_comments %>

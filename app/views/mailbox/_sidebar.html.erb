@@ -1,0 +1,12 @@
+<% sidebar do %>
+  <p class="clearfix">
+    <%= link_button_to "#{icon 'message_edit'} Redactar mensaje", new_sent_path %>
+  </p>
+  <hr />
+  <h3 class="alt">Carpetas</h3>
+  <p>
+    <%= link_to 'Bandeja de entrada', inbox_path %><br />
+    <%= link_to 'Enviados', sent_index_path %><br />
+    <%= link_to 'Eliminados', trash_mailbox_path %>
+  </p>
+<% end %>

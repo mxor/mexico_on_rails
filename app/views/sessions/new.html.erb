@@ -1,0 +1,29 @@
+<h2><%= title 'Entrar' %></h2>
+
+<% form_tag session_path do -%>
+  <fieldset>
+    <p><%= label_tag :login, 'Usuario' %><br />
+    <%= text_field_tag :login, @login, :class => 'title' %></p>
+
+    <p><%= label_tag :password, 'Contraseña' %><br/>
+    <%= password_field_tag :password, nil, :class => 'title' %></p>
+
+    <p><%= label_tag :remember_me, 'Recordarme en este equipo' %>
+    <%= check_box_tag :remember_me, '1', @remember_me %></p>
+  </fieldset>
+  <p class="clearfix"><%= button 'Entrar', :class => :positive %></p>
+<% end -%>
+
+<p class="clearfix"><small><%= link_to_function '¿Olvidaste tu contraseña?' do |page|
+      page.visual_effect :toggle_slide, 'reset-form', :duration => 0.5
+    end %></small></p>
+
+<div id="reset-form" style="display:none">
+  <fieldset><legend>Escribe tu email</legend>
+    <%- form_tag forgot_path do -%>
+      <p><%= text_field_tag :email, nil, :class => 'text' %></p>
+
+      <p class="clearfix"><%= button 'Enviar', :class => 'positive' %></p>
+    <%- end -%>
+  </fieldset>
+</div>

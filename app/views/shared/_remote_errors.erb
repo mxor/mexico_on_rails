@@ -1,0 +1,10 @@
+<div class="error" id="remote_errors" style="display:none">
+  <% unless remote_errors.empty? %>
+    <h3>Ups! Por favor revisa los siguientes campos:</h3>
+    <ul>
+      <% remote_errors.each do |e| %>
+        <li><%= e %></li>
+      <% end %>
+    </ul>
+  <% end %>
+</div>

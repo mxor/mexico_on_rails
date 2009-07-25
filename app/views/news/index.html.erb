@@ -1,0 +1,10 @@
+<%= rss "http://feeds2.feedburner.com/MexicoOnRails" %>
+<h3 class="alt"><%= title 'Noticias' %></h3>
+<hr />
+
+<%- unless @news.empty? -%>
+  <%= render :partial => @news, :spacer_template => 'shared/spacer' %>
+  <%= pagination @news %>
+<%- else -%>
+  <h3>No hay noticias para mostrar.</h3>
+<%- end -%>

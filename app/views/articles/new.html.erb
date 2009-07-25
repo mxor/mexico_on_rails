@@ -1,0 +1,13 @@
+<h2><%= title 'Nuevo artículo' %></h2>
+<%= render :partial => 'uploads/new' %>
+
+<%= error_messages_for :article, :class => 'error' %>
+
+<% form_for @article do |f| %>
+  <%= render :partial => f %>
+  <p class="clearfix">
+    <%= button 'Publicar', :class => :positive, :name => 'publish' %>
+    <%= button 'Previsualizar', :name => 'preview' %>
+    <%= link_button_to 'Cancelar', articles_path, :class => 'negative' %>
+  </p>
+<% end %>

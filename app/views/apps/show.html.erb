@@ -1,0 +1,44 @@
+<%= javascript 'redbox' %>
+<%= stylesheet 'redbox' %>
+<h2><%= title h(@app.name) %></h2>
+
+<% sidebar do %>
+  <h3 class="alt">Info</h3>
+  <p>
+    <span class="bold">URL:</span><br />
+    <%= link_to @app.site_url_without_protocol, @app.site_url, :rel => 'nofollow', :target => '_blank' %>
+  </p>
+  <p>
+    <span class="bold">Añadida hace</span><br />
+    <%= abbr_time_ago @app.created_at, :long %>
+  </p>
+  <% owner @app.user do %>
+    <p class="clearfix"><span class="bold">Administración</span><br />
+      <%= link_button_to "#{icon 'application_edit'} Editar", edit_app_path(@app) %>
+      <%= link_button_to "#{icon 'application_delete'} Eliminar", @app, :method => :delete,
+        :confirm => '¿Realmente deseas remover esta aplicación?', :class => 'negative' %>
+    </p>
+  <% end %>
+<% end %>
+
+<% if @app.self_app %>
+  <p>
+    <span class="bold">Desarrollada por</span>
+    <%= link_to @app.user.login, profile_path(@app.user.login) %>
+  </p>
+<% end %>
+
+<p class="text-center">
+  <%= link_to image_tag(@app.screenshot.public_filename(:thumb), :class => 'bordered'), @app.screenshot.public_filename,
+    :onclick => "RedBox.showInline('full-screenshot'); return false;" %>
+</p>
+
+<div id="full-screenshot" style="display:none">
+  <p><%= image_tag @app.screenshot.public_filename, :class => 'bordered' %></p>
+  <h3><%= @app.name %></h3>
+  <p><%= link_to icon('cross', :alt => 'Cerrar'), '#', :onclick => 'RedBox.close(); return false;', :title => 'Cerrar' %></p>
+</div>
+
+<%= @app.description %>
+
+<%= render :partial => 'comments/comments', :object => @app_comments %>

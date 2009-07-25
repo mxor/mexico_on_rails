@@ -1,0 +1,10 @@
+<li id="page_<%= page.id  %>">
+  <span class="bold"><%=h page.title %></span><br />
+  <span class="small quiet">
+    <%= link_to_if(page.published?, 'publicada', unpublish_page_path(page), :method => :put){
+      link_to('no publicada', publish_page_path(page), :method => :put )
+    } %> |
+    <%= link_to 'editar', edit_page_path(page) %> |
+    <%= link_to 'eliminar', page, :method => :delete, :confirm => '¿Eliminar página?' %>
+  </span>
+</li>

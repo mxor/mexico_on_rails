@@ -1,0 +1,27 @@
+<%= javascript 'redbox' %>
+<%= stylesheet 'redbox' %>
+
+<p class="clearfix"><%= link_to_function "#{icon 'folder_image'} Galería de imágenes", "Effect.toggle('assets', 'blind');",
+  :class => 'button' %></p>
+<div id="assets" style="display:none" class="clear">
+  <hr />
+  <% form_for @upload ||= Upload.new, :url => formatted_uploads_path(:js), :html => {:multipart => true, :target => 'upload_frame'} do |f| %>
+    <p class="bold">Imágenes que violen derechos de autor, obscenas, o que no sean referenciadas por algún artículo; serán eliminadas del servidor sin previo aviso.</p>
+    <p>Para cada imagen se generan dos thumbnails. Selecciona una imagen de la galería para ver la ruta de cada archivo.</p>
+    <p class="error" style="display:none" id="asset_error">
+      Sólo se permite subir <span class="bold">imágenes</span> no mayores a <span class="bold">1MB</span>.
+    </p>
+    <p><%= f.file_field :uploaded_data, :class => 'text' %></p>
+
+    <p class="clearfix"><%= button "#{icon 'folder_go'} Subir", :class => 'positive' %></p>
+
+    <fieldset><legend>Imágenes</legend>
+      <div id="uploads">
+        <%= render :partial => Upload.find_thumbnails(nil), :locals => {:new => false} %>
+      </div>
+    </fieldset>
+  <% end %>
+  <iframe id='upload_frame' name="upload_frame" style="width:1px;height:1px;border:0px" src="about:blank"></iframe>
+</div>
+
+<div class="clear">&nbsp;</div>

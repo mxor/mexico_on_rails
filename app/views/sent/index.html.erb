@@ -1,0 +1,26 @@
+<h2><%= title 'Mensajes enviados' %></h2>
+
+<%= render :partial => 'mailbox/sidebar' %>
+
+<% unless @messages.empty? %>
+  <table>
+    <thead>
+      <tr>
+        <th>Destinatarios</th>
+        <th>Asunto</th>
+        <th>Enviado</th>
+      </tr>
+    </thead>
+    <% @messages.each do |message| %>
+      <tr class="<%= cycle 'even', 'odd' %>">
+        <td><%= message.recipients.map(&:login).to_sentence %></td>
+        <td><%= link_to h(message.subject), sent_path(message) %></td>
+        <td>hace <%= abbr_time_ago message.created_at, :long %></td>
+      </tr>
+    <% end %>
+  </table>
+
+  <%= pagination @messages %>
+<% else %>
+  <h3 class="alt">No has enviado ningún mensaje.</h3>
+<% end %>

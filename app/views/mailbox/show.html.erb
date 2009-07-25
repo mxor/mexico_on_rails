@@ -1,0 +1,34 @@
+<h2><%= title @folder.name %></h2>
+
+<%= render :partial => 'mailbox/sidebar' %>
+
+<% unless @messages.empty? %>
+  <table>
+    <thead>
+      <tr>
+        <th>Remitente</th>
+        <th>Asunto</th>
+        <th>Recibido</th>
+        <th>&nbsp;</th>
+      </tr>
+    </thead>
+    <% @messages.each do |message| %>
+      <tr class="<%= cycle 'even', 'odd' %>">
+        <td><%= message.author.login %></td>
+        <td><%= link_to h(message.subject), message_path(message) %></td>
+        <td>hace <%= abbr_time_ago message.created_at, :long %></td>
+        <td>
+          <% unless message.deleted %>
+            <%= link_to icon('bin', :alt => 'Borrar'), message_path(message), :title => 'Borrar', :method => :delete, :confirm => '¿Eliminar mensaje?' %>
+          <% else %>
+            <%= link_to icon('arrow_refresh', :alt => 'Restaurar'), restore_message_path(message), :title => 'Restaurar', :method => :put %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </table>
+
+  <%= pagination @messages %>
+<% else %>
+  <h3 class="alt">No hay mensajes para mostrar.</h3>
+<% end %>

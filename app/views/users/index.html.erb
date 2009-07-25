@@ -1,0 +1,11 @@
+<h3 class="alt"><%= title 'Miembros' %></h3>
+<hr />
+
+<%- unless @users.empty? -%>
+  <%- for user in @users -%>
+    <%= link_to gravatar(user.email), profile_path(user.login), :title => user.login %>
+  <%- end -%>
+  <%= pagination @users %>
+<%- else -%>
+    <h3>No hay usuarios registrados aún. ¿Quieres <%= link_to 'obtener una cuenta', signup_path %> y ser el primero?</h3>
+<%- end -%>

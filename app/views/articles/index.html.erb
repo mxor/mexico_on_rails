@@ -1,0 +1,33 @@
+<% unless @user %>
+  <%= rss "http://feeds2.feedburner.com/mxor/articulos" %>
+<% else %>
+  <%= rss formatted_user_articles_path(@user.login, :rss) %>
+<% end %>
+
+<% unless @feed_articles.empty? %>
+  <h3 class="alt">Feeds externas</h3>
+  <ul>
+  <% @feed_articles.each do |feed| %>
+    <li>
+      <%= link_to h(feed.title), feed.url %>
+      <span class="quiet">escrito hace <%= abbr_time_ago feed.published_at, :long %>
+      <%= "por #{feed.author}" unless feed.author.blank? %></span>
+    </li>
+  <% end %>
+  </ul>
+<% end %>
+<div class="clear">&nbsp;</div>
+
+<h3 class="alt"><%= title 'Artículos' %></h3>
+<hr />
+
+<%- unless @articles.empty? -%>
+  <%= render :partial => @articles, :spacer_template => 'shared/spacer' %>
+  <%= pagination @articles %>
+<%- else -%>
+  <% if @user %>
+    <h3><%= link_to @user.login, profile_path(@user.login) %> no ha escrito ningún artículo aún :(</h3>
+  <% else %>
+    <h3>No hay artículos aún. ¿Quieres ser el <%= link_to 'primero', new_article_path %>?</h3>
+  <% end %>
+<%- end -%>

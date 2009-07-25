@@ -1,0 +1,19 @@
+<fieldset>
+  <p>
+    <%= form.label :name, 'Nombre' %><br />
+    <%= form.text_field :name, :class => 'title' %>
+  </p>
+  <p>
+    <%= form.label :description, 'Descripción' %><br />
+    <%= form.text_area :description, :cols => 77, :rows => 15, :class => 'mceEditor' %>
+  </p>
+  <p>
+    <%= form.label :self_app, 'Yo desarrollé esta aplicación' %><br />
+    <%= form.check_box :self_app %>
+  </p>
+  <p>
+    <%= form.label :site_url, 'URL del sitio' %><br />
+    <%= form.text_field :site_url, :class => 'text' %>
+  </p>
+  <%= yield(:screenshot) %>
+</fieldset>

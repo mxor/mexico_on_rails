@@ -1,0 +1,13 @@
+<h2><%= title 'Nueva página' %></h2>
+<%= render :partial => 'uploads/new' %>
+
+<%= error_messages_for :page, :class => 'error' %>
+
+<% form_for @page do |f| %>
+  <%= render :partial => f %>
+  <p class="clearfix">
+    <%= button 'Crear página', :class => :positive, :name => 'publish' %>
+    <%= button 'Previsualizar', :name => 'preview' %>
+    <%= link_button_to 'Cancelar', pages_path, :class => 'negative' %>
+  </p>
+<% end %>

@@ -1,0 +1,45 @@
+<h2><%= title h(@article.title) %></h2>
+<% sidebar do %>
+  <h3 class="alt">Info</h3>
+  <p>
+    <span class="bold">Nivel</span><br />
+    <%= Article.levels[@article.level] %>
+  </p>
+  <p>
+    <span class="bold">Escrito por</span><br />
+    <%= link_to gravatar(@article.user.email, {}, :alt => @article.user.login, :title => @article.user.login),
+      profile_path(@article.user.login) %>
+  </p>
+  <p>
+    <span class="bold">Hace</span><br />
+    <%= abbr_time_ago @article.created_at, :long %>
+  </p>
+  <span class="bold">Calificación</span><br />
+  <%= ratings_for @article %>
+  <p class="small quiet">
+    <% if !logged_in? %>
+      <%= "#{link_to('Entra', login_path)} a tu cuenta para calificar este artículo." %>
+    <% elsif @article.rated_by?(current_user) %>
+      Tu calificación: <%= @article.rate_by(current_user).stars %>
+    <% end %>
+  </p>
+  <p>
+    <span class="bold">Tags</span><br />
+    <% @article.tag_list.each do |tag| %>
+      <%= link_to tag, tags_path(:tag => tag), :class => 'tag' %>
+    <% end %>
+  </p>
+  <% owner @article.user do %>
+    <p class="clearfix"><span class="bold">Administración</span><br />
+      <%= link_button_to "#{icon 'page_edit'} Editar", edit_article_path(@article) %>
+      <%= link_button_to "#{icon 'page_delete'} Eliminar", @article, :method => :delete,
+        :confirm => '¿Estás seguro que quieres eliminar este artículo?', :class => 'negative' %>
+    </p>
+  <% end %>
+<% end %>
+
+<%= @article.excerpt %>
+
+<%= @article.body %>
+
+<%= render :partial => 'comments/comments', :object => @article_comments %>

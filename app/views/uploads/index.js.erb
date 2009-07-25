@@ -1,0 +1,3 @@
+var tinyMCEImageList = new Array(<%= Upload.find_thumbnails(nil).map { |img|
+  %Q(["#{img.filename}", "#{img.public_filename(:thumb)}"])
+} * ', ' %>);

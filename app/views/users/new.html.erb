@@ -1,0 +1,13 @@
+<h2><%= title 'Crea una cuenta nueva' %></h2>
+
+<h4>Registrate ahora y empieza a escribir tus artículos y a publicar tus mejores aplicaciones hechas con Ruby On Rails!</h4>
+
+<%= error_messages_for :user, :class => :error %>
+
+<% form_for @user do |f| -%>
+  <fieldset>
+    <%= render :partial => f %>
+  </fieldset>
+
+  <p class="clearfix"><%= button 'Regístrate', :class => 'positive' %></p>
+<% end -%>

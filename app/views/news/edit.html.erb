@@ -1,0 +1,13 @@
+<h2><%= title 'Editar noticia' %></h2>
+<%= render :partial => 'uploads/new' %>
+
+<%= error_messages_for :new, :class => 'error' %>
+
+<% form_for :new, :url => news_path(@new), :html => {:method => :put} do |f| %>
+  <%= render :partial => f %>
+  <p class="clearfix">
+    <%= button 'Guardar cambios', :class => :positive, :name => 'publish' %>
+    <%= button 'Previsualizar', :name => 'preview' %>
+    <%= link_button_to 'Cancelar', news_path(@new), :class => 'negative' %>
+  </p>
+<% end %>

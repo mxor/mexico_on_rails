@@ -1,0 +1,21 @@
+<h2><%= title h(@message.subject) %></h2>
+
+<% sidebar do %>
+  <h3 class="alt">Info</h3>
+
+  <p>
+    <span class="bold">Destinatarios:</span><br />
+    <%= @message.recipients.map{|recipient|
+      link_to gravatar(recipient.email, {:s => 30}, :class => 'bordered'), profile_path(recipient.login), :title => recipient.login
+    } %>
+  </p>
+
+  <p>
+    <span class="bold">Enviado el:</span><br />
+    <%= l @message.created_at, :format => :long %>
+  </p>
+
+  <p><%= link_to '&laquo; Regresar', sent_index_path %></p>
+<% end %>
+
+<pre><%=h @message.body %></pre>

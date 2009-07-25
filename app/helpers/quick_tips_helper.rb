@@ -1,0 +1,2 @@
+module QuickTipsHelper
+end

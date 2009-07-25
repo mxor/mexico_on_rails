@@ -1,0 +1,24 @@
+<h2><%= title 'Editar aplicación' %></h2>
+<%= error_messages_for :app, :class => 'error' %>
+
+<% form_for @app, :html => {:multipart => true} do |f| %>
+  <% content_for :screenshot do %>
+    <p>
+      <%= f.label :new_uploaded_screenshot, 'Screenshot' %><br />
+      <span class="quiet">Selecciona una nueva imagen para cambiar el screenshot actual</span>
+    </p>
+    <% if @app.errors.empty? %>
+      <p>
+        <%= image_tag @app.screenshot.public_filename(:thumb), :class => 'bordered' %>
+      </p>
+    <% end %>
+    <p><%= f.file_field :new_uploaded_screenshot, :class => 'text' %></p>
+  <% end %>
+
+  <%= render :partial => f %>
+
+  <p class="clearfix">
+    <%= button 'Guardar cambios', :class => :positive %>
+    <%= link_button_to 'Cancelar', @app, :class => 'negative' %>
+  </p>
+<% end %>

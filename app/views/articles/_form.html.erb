@@ -1,0 +1,29 @@
+<% if params[:preview] %>
+  <fieldset><legend>Previsualización</legend>
+    <%= sanitize @article.excerpt %>
+    <%= sanitize @article.body %>
+  </fieldset>
+<% end %>
+<fieldset>
+  <p>
+    <%= form.label :level, 'Nivel' %><br />
+    <%= form.select :level, levels_collection %>
+  </p>
+  <p>
+    <%= form.label :title, 'Título' %><br />
+    <%= form.text_field :title, :class => 'title' %>
+  </p>
+  <p>
+    <%= form.label :excerpt, 'Introducción' %><br />
+    <%= form.text_area :excerpt, :cols => 77, :rows => 15, :class => 'mceEditor' %>
+  </p>
+  <p>
+    <%= form.label :body, 'Cuerpo' %><br />
+    <%= form.text_area :body, :cols => 77, :rows => 30, :class => 'mceEditor' %>
+  </p>
+  <p>
+    <%= form.label :tag_list, 'Tags' %>
+    <span class="quiet">separadas por comas</span><br />
+    <%= form.text_field :tag_list, :class => 'text' %>
+  </p>
+</fieldset>

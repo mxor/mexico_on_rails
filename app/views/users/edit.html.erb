@@ -1,0 +1,86 @@
+<h2><%= title 'Edita tu información' %></h2>
+
+<%= error_messages_for :user, :class => :error %>
+
+<% form_for @user do |f| -%>
+  <script type="text/javascript">
+    document.observe('dom:loaded', function() {
+      $$('input.profile').each(function(profile) {
+        var span = $(profile.identify().substring(5, profile.identify().length) + '-url');
+        if(span) {
+          if(!profile.value.blank()) span.update(profile.value);
+          new Form.Element.Observer(profile, 0.5, function() {
+            if(profile.value.blank()) {
+              span.update('usuario');
+            } else {
+              span.update(profile.value);
+            }
+          });
+        }
+      });
+    });
+  </script>
+  <fieldset><legend>Tu Cuenta</legend>
+    <%= render :partial => f %>
+  </fieldset>
+
+  <fieldset><legend>Tu Perfil</legend>
+    <p><%= f.label :time_zone, 'Zona horaria' %><br/>
+    <%= f.time_zone_select :time_zone, [ActiveSupport::TimeZone.new('Mexico City')] %></p>
+
+    <p><%= f.label :weblog, 'Blog' %><br/>
+    <%= f.text_field :weblog, :class => 'text' %></p>
+
+    <p><%= f.label :public_email, 'Email público' %><br/>
+    <%= f.text_field :public_email, :class => 'text' %></p>
+
+    <p><%= f.label :msn, 'Dirección de MSN' %><br/>
+    <%= f.text_field :msn, :class => 'text' %></p>
+
+    <p><%= f.label :about, 'Acerca de ti' %><br/>
+    <%= f.text_area :about, :cols => 77, :rows => 15, :class => 'mceEditor' %></p>
+
+    <p><%= f.label :github, 'Perfil de Github' %>
+      <span class="quiet">http://github.com/<span id="github-url">usuario</span></span><br/>
+    <%= f.text_field :github, :class => 'text profile' %></p>
+
+    <p><%= f.label :wwr, 'Perfil de Working With Rails' %>
+      <span class="quiet">http://workingwithrails.com/person/<span id="wwr-url">usuario</span></span><br/>
+    <%= f.text_field :wwr, :class => 'text profile' %></p>
+
+    <p><%= f.label :linkedin, 'Perfil de Linkedin' %>
+      <span class="quiet">http://www.linkedin.com/in/<span id="linkedin-url">usuario</span></span><br/>
+    <%= f.text_field :linkedin, :class => 'text profile' %></p>
+
+    <p><%= f.label :twitter, 'Twitter' %>
+      <span class="quiet">http://twitter.com/<span id="twitter-url">usuario</span></span><br/>
+    <%= f.text_field :twitter, :class => 'text profile' %></p>
+
+    <p><%= f.label :os, 'Sistema Operativo favorito' %><br/>
+    <%= f.text_field :os, :class => 'text' %></p>
+
+    <p><%= f.label :text_editor, 'Editor de texto favorito' %><br/>
+    <%= f.text_field :text_editor, :class => 'text' %></p>
+    
+    <p>
+      <%= f.label :feed_urls, 'Feeds' %>
+      <span class="quiet">URLs de tus feeds (Una por línea. Sólo temas referentes a Rails! - Sólo RSS por ahora -)</span><br/>
+      <%= f.text_area :feed_urls, :cols => 60, :rows => 5, :class => 'text' %>
+      <% unless @user.feed_urls_list.empty? %>
+        <ul id="feed_urls">
+          <li><span class="quiet">Marca para eliminar</span></li>
+          <% @user.feed_urls_list.each do |feed| %>
+          <li>
+            <%= check_box_tag 'remove_feeds[]', feed %>
+            <%= link_to feed, feed %>
+          </li>
+          <% end %>
+        </ul>
+      <% end %>
+    </p>
+  </fieldset>
+  <p class="clearfix">
+    <%= button 'Actualizar', :class => 'positive' %>
+    <%= link_button_to 'Cancelar', profile_path(@user.login), :class => 'negative' %>
+  </p>
+<% end -%>

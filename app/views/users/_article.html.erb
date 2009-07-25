@@ -1,0 +1,3 @@
+<h4><%= link_to h(article.title), article_path(article.permalink) %></h4>
+<p class="quiet">Escrito hace <%= abbr_time_ago article.created_at %></p>
+<%= article.excerpt %>

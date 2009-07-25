@@ -1,0 +1,13 @@
+<h2><%= title 'Tips' %></h2>
+<% sidebar do %>
+  <h3>Admin</h3>
+  <p class="clearfix">
+    <%= link_button_to "#{icon 'script_add'} Añadir tip", new_quick_tip_path %>
+  </p>
+<% end %>
+
+<% unless @quick_tips.empty? %>
+  <%= render :partial => @quick_tips, :spacer_template => 'shared/spacer' %>
+<% else %>
+  <h3 class="alt">No hay tips aún.</h3>
+<% end %>

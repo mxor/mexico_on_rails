@@ -1,0 +1,11 @@
+<% if params[:preview] %>
+  <fieldset><legend>Previsualización</legend>
+    <%= sanitize @quick_tip.content %>
+  </fieldset>
+<% end %>
+<fieldset>
+  <p>
+    <%= form.label :content, 'Contenido' %><br />
+    <%= form.text_area :content, :cols => 77, :rows => 15, :class => 'mceEditor' %>
+  </p>
+</fieldset>

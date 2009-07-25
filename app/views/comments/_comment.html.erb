@@ -1,0 +1,18 @@
+<% content_tag :div, :id => "comment-#{comment.id}", :style => (comment.recently_added? ? 'display:none' : ''), :class => 'box' do %>
+  <a name="comment-<%= comment.id %>"></a>
+  <p><%= gravatar comment.email, {:s => 30}, :class => 'bordered right' %></p>
+  <h4 class="alt loud">
+    <%= link_to icon('comment'), commentable_url(comment), :title => 'Enlace permanente al comentario' %>
+    <%= link_to_unless comment.site_url.blank?, h(comment.name), comment.site_url, :target => '_blank', :rel => 'nofollow' %>
+    dijo hace <%= abbr_time_ago comment.created_at, :long %>:
+  </h4>
+  <%= comment.content_html %>
+
+  <% admin do %>
+    <hr />
+    <%= comment.user_ip %> |
+    <%= link_to_if(comment.approved?, 'Marcar como spam', disapprove_comment_path(comment), :method => :put) %> |
+    <%= link_to 'Editar', edit_comment_path(comment) %> |
+    <%= link_to 'Eliminar', comment, :method => :delete, :confirm => '¿Eliminar comentario?' %>
+  <% end %>
+<% end %>

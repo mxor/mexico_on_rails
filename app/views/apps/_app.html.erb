@@ -1,0 +1,16 @@
+<h2><%= link_to h(app.name), app %></h2>
+
+<div class="screenie">
+  <%= image_tag app.screenshot.public_filename(:thumb) %>
+</div>
+<div class="inside-span-2 last">
+  <%= app.description %>
+  <% if app.self_app %>
+    <p class="quiet">Desarrollada por <%= link_to app.user.login, profile_path(app.user.login) %></p>
+  <% end %>
+  <div class="clearfix">
+    <%= link_to "#{app.site_url_without_protocol} #{icon 'application_go', :alt => ''}", app.site_url, :rel => 'nofollow',
+      :target => '_blank', :class => 'button' %>
+  </div>
+</div>
+<div class="clear">&nbsp;</div>

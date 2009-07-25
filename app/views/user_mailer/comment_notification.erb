@@ -1,0 +1,17 @@
+Hola <%= @user.login %>,
+
+Un nuevo comentario ha sido añadido a un artículo publicado por ti.
+
+
+  <%= @comment.name %> | <%= @comment.email %> | <%= @comment.site_url %>
+  -----------------------------------------------------------------------
+
+    <%=h @comment.content_html %>
+
+  -----------------------------------------------------------------------
+
+Puedes ver este comentario en la siguiente URL:
+<%= @url %>
+
+
+<%= @signature %>

@@ -1,0 +1,19 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  user: 
+  title: MyString
+  excerpt: MyText
+  body: MyText
+  level: 
+  permalink: MyString
+  comments_count: 1
+
+two:
+  user: 
+  title: MyString
+  excerpt: MyText
+  body: MyText
+  level: 
+  permalink: MyString
+  comments_count: 1

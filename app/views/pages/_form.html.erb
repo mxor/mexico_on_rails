@@ -1,0 +1,19 @@
+<% if params[:preview] %>
+  <fieldset><legend>Previsualización</legend>
+    <%= sanitize @page.content %>
+  </fieldset>
+<% end %>
+<fieldset>
+  <p>
+    <%= form.label :title, 'Título' %><br />
+    <%= form.text_field :title, :class => 'title' %>
+  </p>
+  <p>
+    <%= form.label :content, 'Contenido' %><br />
+    <%= form.text_area :content, :cols => 77, :rows => 30, :class => 'mceEditor' %>
+  </p>
+  <p>
+    <%= form.label :published, 'Publicada' %><br />
+    <%= form.check_box :published %>
+  </p>
+</fieldset>

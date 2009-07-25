@@ -1,0 +1,4 @@
+<h2><%= link_to h(article.title), article_path(article.permalink) %></h2>
+<p class="quiet">escrito hace <%= abbr_time_ago article.created_at, :long %>
+por <%= link_to article.user.login, profile_path(article.user.login) %></p>
+<%= article.excerpt %>

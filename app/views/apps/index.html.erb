@@ -1,0 +1,18 @@
+<% unless @user %>
+  <%= rss "http://feeds2.feedburner.com/mxor/repo" %>
+<% else %>
+  <%= rss formatted_user_apps_path(@user.login, :rss) %>
+<% end %>
+<h3 class="alt"><%= title 'Repositorio de aplicaciones' %></h3>
+<hr />
+
+<%- unless @apps.empty? -%>
+  <%= render :partial => @apps, :spacer_template => 'shared/spacer' %>
+  <%= pagination @apps %>
+<%- else -%>
+  <% if @user %>
+    <h3><%= link_to @user.login, profile_path(@user.login) %> no ha publicado ninguna aplicación aún :(</h3>
+  <% else %>
+    <h3>No hay aplicaciones aún. ¿Por qué no <%= link_to 'añades', new_app_path %> una?</h3>
+  <% end %>
+<%- end -%>

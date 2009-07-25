@@ -1,0 +1,33 @@
+<h2><%= title 'Editar comentario' %></h2>
+
+<%= error_messages_for :comment, :class => 'error' %>
+
+<% form_for @comment do |f| %>
+  <fieldset>
+    <p>
+      <span class="bold">Dirección IP</span><br />
+      <%= @comment.user_ip %>
+    </p>
+    <p>
+      <%= f.label :name, 'Nombre' %><br />
+      <%= f.text_field :name, :class => 'text', :tabindex => 1 %>
+    </p>
+    <p>
+      <%= f.label :email, 'Email' %> <span class="small quiet">(no será publicado)</span><br />
+      <%= f.text_field :email, :class => 'text', :tabindex => 2 %>
+    </p>
+    <p>
+      <%= f.label :site_url, 'URL' %><br />
+      <%= f.text_field :site_url, :class => 'text', :tabindex => 3 %>
+    </p>
+    <p>
+      <%= f.label :content, 'Comentario' %>
+      <span class="small quiet">(<%= link_to 'textile', 'http://hobix.com/textile/', :target => '_blank' %> está activado)</span><br />
+      <%= f.text_area :content, :cols => 70, :rows => 10, :tabindex => 4 %>
+    </p>
+    <p class="clearfix">
+      <%= button 'Guardar', :class => 'positive', :tabindex => 5 %>
+      <%= link_button_to 'Cancelar', commentable_url(@comment), :class => 'negative' %>
+    </p>
+  </fieldset>
+<% end %>

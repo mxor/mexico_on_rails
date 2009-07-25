@@ -1,0 +1,40 @@
+<%= rss "http://feeds2.feedburner.com/mxor/comentarios" %>
+
+<h3 class="alt"><%= title 'Comentarios' %></h3>
+<hr />
+<% unless @approved_comments.empty? %>
+  <%= render :partial => @approved_comments %>
+<% else %>
+  <h4 class="alt">No hay comentarios aún.</h4>
+<% end %>
+
+<% admin do %>
+  <hr />
+
+  <h3>Spam</h3>
+  <% unless @rejected_comments.empty? %>
+    <% form_tag destroy_multiple_comments_path, :method => :delete do %>
+      <table>
+        <thead>
+          <tr>
+            <th>&nbsp;</th>
+            <th>Comentario</th>
+            <th>&nbsp;</th>
+          </tr>
+        </thead>
+        <% @rejected_comments.each do |comment| %>
+          <tr class="<%= cycle 'even', 'odd' %>">
+            <td><%= check_box_tag 'comment_ids[]', comment.id, true %></td>
+            <td><%= truncate h(comment.content_html), :length => 100 %></td>
+            <td><%= link_to 'No es spam', approve_comment_path(comment), :method => :put %></td>
+          </tr>
+        <% end %>
+      </table>
+      <p class="clearfix">
+        <%= button 'Eliminar seleccionados', :class => 'negative' %>
+      </p>
+    <% end %>
+  <% else %>
+    <h4 class="alt">No hay spam!</h4>
+  <% end %>
+<% end %>

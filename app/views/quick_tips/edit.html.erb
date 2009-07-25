@@ -1,0 +1,12 @@
+<h2><%= title 'Editar tip' %></h2>
+
+<%= error_messages_for :tip, :class => 'error' %>
+
+<% form_for @quick_tip do |f| %>
+  <%= render :partial => f %>
+  <p class="clearfix">
+    <%= button 'Guardar', :class => :positive, :name => 'publish' %>
+    <%= button 'Previsualizar', :name => 'preview' %>
+    <%= link_button_to 'Cancelar', quick_tips_path, :class => 'negative' %>
+  </p>
+<% end %>

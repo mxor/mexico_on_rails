@@ -1,0 +1,17 @@
+Hola <%= @user.login %>,
+
+Tienes un nuevo mensaje privado:
+
+
+De: <%= @sender %>
+-----------------------------------------------------------------------
+
+<%=h @body %>
+
+-----------------------------------------------------------------------
+
+Puedes responder a este mensaje en la siguiente URL:
+<%= @url %>
+
+
+<%= @signature %>

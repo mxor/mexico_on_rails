@@ -1,0 +1,13 @@
+<p>&nbsp;</p>
+<hr />
+<h3>Comentarios <%= icon 'comments' %></h3>
+
+<div id="comments">
+  <% unless comments.empty? %>
+    <%= render :partial => comments %>
+  <% else %>
+    <h4 class="alt">No hay comentarios. Sé el primero en comentar!</h4>
+  <% end %>
+</div>
+<p>&nbsp;</p>
+<%= render :partial => 'comments/new' %>

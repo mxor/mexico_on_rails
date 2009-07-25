@@ -1,0 +1,3 @@
+<h2><%= link_to h(new.title), news_path(new) %></h2>
+<p class="quiet">escrito hace <%= abbr_time_ago new.created_at, :long %></p>
+<%= truncate new.content, :length => new.content.index('</p>') + 7, :omission => '...</p>' %>

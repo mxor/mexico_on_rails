@@ -1,0 +1,18 @@
+<h2><%= title 'Páginas' %></h2>
+<% sidebar do %>
+  <h3 class="alt">Administración</h3>
+  <p class="clearfix">
+    <%= link_button_to "#{icon 'page_add'} Crear página", new_page_path %>
+  </p>
+<% end %>
+
+<% unless @pages.empty? %>
+  <p class="alt">Arrastra cada item para ordernar.</p>
+
+  <ol id="page-list" class="sortable">
+    <%= render :partial => @pages %>
+  </ol>
+  <%= sortable_element 'page-list', :url => sort_pages_path, :complete => visual_effect(:highlight, 'page-list') %>
+<% else %>
+  <h3 class="alt">No hay páginas para mostrar. <%= link_to 'Agrega', new_page_path %> una nueva página.</h3>
+<% end %>

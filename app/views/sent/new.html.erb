@@ -1,0 +1,48 @@
+<%= stylesheet 'facebooklist' %>
+<%= javascript 'textboxlist', 'facebooklist' %>
+
+<h2><%= title "#{action_name == 'reply' ? 'Responder' : (action_name == 'forward' ? 'Reenviar' : 'Redactar')} mensaje" %></h2>
+<%= render :partial => 'mailbox/sidebar' %>
+
+<%= error_messages_for :message, :class => 'error' %>
+
+<% form_for :message, :url => url_for(:controller => 'sent', :action => 'create') do |f| %>
+  <fieldset>
+    <p>
+      <ol>
+        <li class="input-text" id="to-list">
+          <label>Destinatarios</label>
+          <%= text_field_tag 'to', nil, :class => 'text' %>
+          <div id="to-auto">
+            <div class="default">
+              Escribe y selecciona de la lista el nombre de los destinatarios.
+            </div>
+            <ul class="feed">
+              <% @message.to.each do |auto| %>
+                <%= content_tag :li, User.find(auto).login, :value => auto %>
+              <% end %>
+            </ul>
+          </div>
+        </li>
+      </ol>
+      <script type="text/javascript">
+        document.observe('dom:loaded', function() {
+          new FacebookList('to', 'to-auto',{fetchFile:'/users.json'});
+        });
+      </script>
+    </p>
+
+    <p>
+      <%= f.label :subject, 'Asunto' %><br />
+      <%= f.text_field :subject, :class => 'text' %>
+    </p>
+
+    <p>
+      <%= f.label :body, 'Cuerpo' %><br />
+      <%= f.text_area :body, :cols => 77, :rows => 20 %>
+    </p>
+  </fieldset>
+  <p class="clearfix">
+    <%= button "#{icon 'message_go'} Enviar", :class => 'positive' %>
+  </p>
+<% end %>

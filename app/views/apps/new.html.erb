@@ -1,0 +1,18 @@
+<h2><%= title 'Nueva aplicación' %></h2>
+<%= error_messages_for :app, :class => 'error' %>
+
+<% form_for @app, :html => {:multipart => true} do |f| %>
+  <% content_for :screenshot do %>
+    <p>
+      <%= f.label :uploaded_screenshot, 'Screenshot' %><br />
+      <%= f.file_field :uploaded_screenshot, :class => 'text' %>
+    </p>
+  <% end %>
+
+  <%= render :partial => f %>
+
+  <p class="clearfix">
+    <%= button 'Publicar', :class => :positive %>
+    <%= link_button_to 'Cancelar', apps_path, :class => 'negative' %>
+  </p>
+<% end %>

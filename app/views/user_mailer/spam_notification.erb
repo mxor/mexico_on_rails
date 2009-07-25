@@ -1,0 +1,14 @@
+Un comentario ha sido marcado como spam.
+
+  <%= @comment.name %> | <%= @comment.email %> | <%= @comment.user_ip %>
+  -----------------------------------------------------------------------
+
+    <%=h @comment.content_html %>
+
+  -----------------------------------------------------------------------
+
+Puedes administrar y moderar comentarios en la siguiente URL:
+<%= @url %>
+
+
+<%= @signature %>

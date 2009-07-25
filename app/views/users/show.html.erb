@@ -1,0 +1,98 @@
+<%= rss formatted_user_articles_path(@user.login, :rss) %>
+<%= rss formatted_user_apps_path(@user.login, :rss) %>
+<h1 class="alt"><%= title @user.login %></h1>
+<div class="screenie">
+  <%= gravatar @user.email %>
+</div>
+<div class="inside-span-2 last">
+  <%= content_tag(:h4, h(@user.name)) unless @user.name.blank? %>
+  <%= @user.about %>
+</div>
+<div class="clear">&nbsp;</div>
+<hr />
+<h3>Últimos artículos publicados por <%= @user.login %> <%= link_to icon('feed'), formatted_user_articles_path(@user.login, :rss),
+  :title => "Suscríbete a los artículos de #{@user.login}" %></h3>
+
+<% if @user.articles.empty? %>
+  <p class="alt"><%= @user.login %> no ha publicado ningún artículo <%= icon 'emoticon_unhappy', :alt => ':(' %></p>
+<% else %>
+  <%= render :partial => 'article', :collection => @user_articles, :spacer_template => 'shared/spacer' %>
+  <br />
+  <p><%= link_to 'Ver todos los artículos &raquo;', user_articles_path(@user.login) %></p>
+<% end %>
+<hr />
+<div class="prepend-top">
+  <h3>Últimas aplicaciones añadidas por <%= @user.login %> <%= link_to icon('feed'), formatted_user_apps_path(@user.login, :rss),
+    :title => "Suscríbete a las aplicaciones de #{@user.login}" %></h3>
+
+  <% if @user.apps.empty? %>
+    <p class="alt"><%= @user.login %> no ha añadido ninguna aplicación <%= icon 'emoticon_unhappy', :alt => ':(' %></p>
+  <% else %>
+    <% @user.apps.each do |app| %>
+      <span class="screenie">
+        <%= link_to image_tag(app.screenshot.public_filename(:thumb), :alt => app.name), app, :title => app.name %>
+      </span>
+    <% end %>
+  <% end %>
+  <div class="clear">
+    <br />
+    <p><%= link_to 'Ver todas las aplicaciones &raquo;', user_apps_path(@user.login) %></p>
+  </div>
+</div>
+
+<% sidebar do %>
+  <h3 class="alt">Info</h3>
+  <p>
+    <span class="bold">Miembro desde hace</span><br />
+    <%= abbr_time_ago @user.created_at, :long %>
+  </p>
+  <% unless @user.weblog.blank? %>
+    <p>
+      <span class="bold">Blog</span><br />
+      <%= link_to @user.weblog, @user.weblog, :rel => 'nofollow', :target => '_blank' %>
+    </p>
+  <% end %>
+  <% unless @user.public_email.blank? %>
+    <p>
+      <span class="bold">Email</span><br />
+      <%= mail_to @user.public_email, @user.public_email, :encode => 'hex' %>
+    </p>
+  <% end %>
+  <% unless @user.msn.blank? %>
+    <p>
+      <span class="bold">MSN</span><br />
+      <%= @user.msn %>
+    </p>
+  <% end %>
+  <% unless @user.os.blank? %>
+    <p>
+      <span class="bold">Sistema Operativo favorito</span><br />
+      <%=h @user.os %>
+    </p>
+  <% end %>
+  <% unless @user.text_editor.blank? %>
+    <p>
+      <span class="bold">Editor de texto favorito</span><br />
+      <%=h @user.text_editor %>
+    </p>
+  <% end %>
+  <hr />
+  <p class="clearfix">
+    <%= link_to_unless(@user.github.blank?, "#{icon 'github'} github", "http://github.com/#{h @user.github}", :rel => 'nofollow',
+      :target => '_blank', :class => 'button') {} %>
+
+    <%= link_to_unless(@user.wwr.blank?, "#{icon 'wwr'} wwr", "http://workingwithrails.com/person/#{h @user.wwr}", :rel => 'nofollow',
+      :target => '_blank', :class => 'button') {} %>
+
+    <%= link_to_unless(@user.linkedin.blank?, "#{icon 'linkedin'} linkedin", "http://www.linkedin.com/in/#{h @user.linkedin}", :rel => 'nofollow',
+      :target => '_blank', :class => 'button') {} %>
+
+    <%= link_to_unless(@user.twitter.blank?, "#{icon 'twitter'}twitter", "http://twitter.com/#{h @user.twitter}", :rel => 'nofollow',
+      :target => '_blank', :class => 'button') {} %>
+  </p>
+  <% owner @user do %>
+    <p class="clearfix"><span class="bold">Cuenta</span><br />
+      <%= link_button_to "#{icon 'vcard_edit'} Editar perfil", edit_user_path(@user.login) %>
+    </p>
+  <% end %>
+<% end %>

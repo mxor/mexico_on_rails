@@ -1,0 +1,5 @@
+<p><%= quick_tip.content %></p>
+<p>
+  <%= link_to 'editar', edit_quick_tip_path(quick_tip) %> |
+  <%= link_to 'eliminar', quick_tip, :method => :delete, :confirm => '¿Eliminar tip?' %>
+</p>

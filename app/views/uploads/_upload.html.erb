@@ -1,0 +1,25 @@
+<% modal_name = "modal_content_#{upload.id}" %>
+
+<% content_tag :span, :class => 'thumb', :id => "asset_#{upload.id}", :style => (new ? 'display:none' : nil) do %>
+  <%= link_to image_tag(upload.public_filename(:mini)), upload.public_filename,
+    :onclick => "RedBox.showInline('#{modal_name}'); return false;", :title => 'Haz click para ver los detalles' %>
+<% end %>
+
+<% content_tag :div, :id => modal_name, :style => 'display:none' do %>
+  <h3><%= upload.filename %></h3>
+  <p><%= image_tag upload.public_filename(:thumb) %></p>
+  <p class="quiet">Subida por <%= upload.user.login %> hace <%= abbr_time_ago upload.created_at, :long %></p>
+  <form action="#" onsubmit="return false;">
+    <p>
+      <label><%= "Original (#{upload.image_size}):" %></label><br />
+      <%= text_field_tag "asset_original_#{upload.id}", upload.public_filename, :readonly => true, :class => 'text', :onclick => "$(this).select();" %>
+    </p>
+    <% upload.thumbnails.each do |t| %>
+      <p>
+        <label><%= "#{t.thumbnail.capitalize} (#{t.image_size}):" %></label><br />
+        <%= text_field_tag "asset_#{t.thumbnail}_#{t.id}", t.public_filename, :readonly => true, :class => 'text', :onclick => "$(this).select();" %>
+      </p>
+    <% end %>
+  </form>
+  <%= link_to icon('cross', :alt => 'Cerrar'), '#', :onclick => 'RedBox.close(); return false;', :title => 'Cerrar' %>
+<% end %>
