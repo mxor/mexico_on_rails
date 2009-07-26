@@ -9,7 +9,7 @@ require File.join(File.dirname(__FILE__), 'boot')
 Rails::Initializer.run do |config|
   config.gem "hpricot", :source => "http://code.whytheluckystiff.net"
   config.gem "RedCloth", :lib => "redcloth", :source => "http://code.whytheluckystiff.net"
-  config.gem "rufus-scheduler"
+  config.gem 'javan-whenever', :lib => false, :source => 'http://gems.github.com'
   config.gem "rss-client"
   config.time_zone = 'UTC'
   config.i18n.default_locale = :'es-MX'
