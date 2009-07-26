@@ -11,7 +11,7 @@ class User < ActiveRecord::Base
   has_many :sent_messages, :class_name => 'Message', :foreign_key => 'author_id'
   has_many :received_messages, :class_name => 'MessageCopy', :foreign_key => 'recipient_id'
   has_many :folders
-  has_many :feed_articles
+  has_many :feeds, :class_name => "FeedUrl"
 
   validates_presence_of :login
   validates_length_of :login, :within => 3..20
@@ -42,7 +42,7 @@ class User < ActiveRecord::Base
     
   def feed_urls=(urls)
     urls.split("\r\n").each do |url|
-      feed_articles.build(:feed_url => url) unless FeedArticle.find_by_feed_url(url)
+      feeds.build(:url => url) unless FeedUrl.find_by_url(url)
     end
   end
   
@@ -52,7 +52,7 @@ class User < ActiveRecord::Base
   end
   
   def feed_urls_list
-    feed_articles.map(&:feed_url)
+    feeds.map(&:url)
   end
 
   def make_reset_code

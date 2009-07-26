@@ -4,12 +4,12 @@
   <%= rss formatted_user_articles_path(@user.login, :rss) %>
 <% end %>
 
-<% unless @feed_articles.empty? %>
+<% unless @feed_entries.empty? %>
   <h3 class="alt">Feeds externas</h3>
   <ul>
-  <% @feed_articles.each do |feed| %>
+  <% @feed_entries.each do |feed| %>
     <li>
-      <%= link_to h(feed.title), feed.url %>
+      <%= link_to h(feed.name), feed.url %>
       <span class="quiet">escrito hace <%= abbr_time_ago feed.published_at, :long %>
       <%= "por #{feed.author}" unless feed.author.blank? %></span>
     </li>

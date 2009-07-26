@@ -10,7 +10,7 @@ Rails::Initializer.run do |config|
   config.gem "hpricot", :source => "http://code.whytheluckystiff.net"
   config.gem "RedCloth", :lib => "redcloth", :source => "http://code.whytheluckystiff.net"
   config.gem 'javan-whenever', :lib => false, :source => 'http://gems.github.com'
-  config.gem "rss-client"
+  config.gem "pauldix-feedzirra", :lib => "feedzirra", :source => "http://gems.github.com"
   config.time_zone = 'UTC'
   config.i18n.default_locale = :'es-MX'
   config.action_controller.session = {

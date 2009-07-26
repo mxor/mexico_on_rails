@@ -1,9 +1,6 @@
 desc "Update the feeds"
 task :update_feeds => :environment do
-  updated = []
-  errors = 0
-
-  FeedArticle.all.each do |feed|
-    updated << feed.update_feed
+  FeedUrl.all.each do |feed|
+    FeedEntry.update_from_feed(feed.url)
   end
 end

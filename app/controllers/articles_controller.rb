@@ -13,11 +13,7 @@ class ArticlesController < ApplicationController
       Article
     end.paginate(pagination_options)
     
-    @feed_articles = if params[:user_id]
-      @user.feed_articles
-    else
-      FeedArticle.all
-    end.map(&:entries).flatten.sort_by(&:published_at).reverse[0...10]
+    @feed_entries = FeedEntry.all.sort_by(&:published_at).reverse[0...10]
   end
 
   def rate
